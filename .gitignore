@@ -1,0 +1,18 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# Debug files
+*.pdb
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.log
+*.tmp
