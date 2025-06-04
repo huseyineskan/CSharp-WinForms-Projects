@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnClearUserInputs = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
+            this.btnUpdateUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.comboUserList = new System.Windows.Forms.ComboBox();
             this.textUserEmail = new System.Windows.Forms.TextBox();
@@ -46,8 +46,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.userDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnClearBookInputs = new System.Windows.Forms.Button();
+            this.btnDeleteBook = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.btnUpdateBook = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnAddBook = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -68,9 +72,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btnClearUserInputs);
+            this.groupBox1.Controls.Add(this.btnDeleteUser);
+            this.groupBox1.Controls.Add(this.btnUpdateUser);
             this.groupBox1.Controls.Add(this.btnAddUser);
             this.groupBox1.Controls.Add(this.comboUserList);
             this.groupBox1.Controls.Add(this.textUserEmail);
@@ -85,45 +89,45 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(738, 258);
+            this.groupBox1.Size = new System.Drawing.Size(738, 240);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "USER SECTION";
             // 
-            // button4
+            // btnClearUserInputs
             // 
-            this.button4.Location = new System.Drawing.Point(332, 211);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(156, 28);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Clear Inputs";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnClearUserInputs.Location = new System.Drawing.Point(594, 179);
+            this.btnClearUserInputs.Name = "btnClearUserInputs";
+            this.btnClearUserInputs.Size = new System.Drawing.Size(124, 47);
+            this.btnClearUserInputs.TabIndex = 3;
+            this.btnClearUserInputs.Text = "Clear Inputs";
+            this.btnClearUserInputs.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnDeleteUser
             // 
-            this.button3.Location = new System.Drawing.Point(332, 165);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 28);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Location = new System.Drawing.Point(438, 179);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(124, 47);
+            this.btnDeleteUser.TabIndex = 3;
+            this.btnDeleteUser.Text = "Delete";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnUpdateUser
             // 
-            this.button2.Location = new System.Drawing.Point(332, 120);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(156, 28);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnUpdateUser.Location = new System.Drawing.Point(269, 179);
+            this.btnUpdateUser.Name = "btnUpdateUser";
+            this.btnUpdateUser.Size = new System.Drawing.Size(124, 47);
+            this.btnUpdateUser.TabIndex = 3;
+            this.btnUpdateUser.Text = "Update";
+            this.btnUpdateUser.UseVisualStyleBackColor = true;
             // 
             // btnAddUser
             // 
-            this.btnAddUser.Location = new System.Drawing.Point(332, 78);
+            this.btnAddUser.Location = new System.Drawing.Point(109, 179);
             this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(156, 28);
+            this.btnAddUser.Size = new System.Drawing.Size(124, 47);
             this.btnAddUser.TabIndex = 3;
-            this.btnAddUser.Text = "Add New User";
+            this.btnAddUser.Text = "Add User";
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
@@ -133,31 +137,32 @@
             this.comboUserList.FormattingEnabled = true;
             this.comboUserList.Location = new System.Drawing.Point(109, 35);
             this.comboUserList.Name = "comboUserList";
-            this.comboUserList.Size = new System.Drawing.Size(194, 28);
+            this.comboUserList.Size = new System.Drawing.Size(609, 28);
             this.comboUserList.TabIndex = 2;
+            this.comboUserList.SelectedIndexChanged += new System.EventHandler(this.comboUserList_SelectedIndexChanged);
             // 
             // textUserEmail
             // 
             this.textUserEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserEmail.Location = new System.Drawing.Point(109, 165);
+            this.textUserEmail.Location = new System.Drawing.Point(109, 126);
             this.textUserEmail.Name = "textUserEmail";
-            this.textUserEmail.Size = new System.Drawing.Size(196, 27);
+            this.textUserEmail.Size = new System.Drawing.Size(241, 27);
             this.textUserEmail.TabIndex = 1;
             // 
             // textUserPhone
             // 
             this.textUserPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserPhone.Location = new System.Drawing.Point(107, 211);
+            this.textUserPhone.Location = new System.Drawing.Point(470, 126);
             this.textUserPhone.Name = "textUserPhone";
-            this.textUserPhone.Size = new System.Drawing.Size(196, 27);
+            this.textUserPhone.Size = new System.Drawing.Size(248, 27);
             this.textUserPhone.TabIndex = 1;
             // 
             // textUserLastname
             // 
             this.textUserLastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserLastname.Location = new System.Drawing.Point(109, 117);
+            this.textUserLastname.Location = new System.Drawing.Point(470, 78);
             this.textUserLastname.Name = "textUserLastname";
-            this.textUserLastname.Size = new System.Drawing.Size(196, 27);
+            this.textUserLastname.Size = new System.Drawing.Size(248, 27);
             this.textUserLastname.TabIndex = 1;
             // 
             // textUserFirstname
@@ -165,14 +170,14 @@
             this.textUserFirstname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.textUserFirstname.Location = new System.Drawing.Point(109, 78);
             this.textUserFirstname.Name = "textUserFirstname";
-            this.textUserFirstname.Size = new System.Drawing.Size(196, 27);
+            this.textUserFirstname.Size = new System.Drawing.Size(241, 27);
             this.textUserFirstname.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(38, 172);
+            this.label5.Location = new System.Drawing.Point(38, 133);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 20);
             this.label5.TabIndex = 0;
@@ -182,7 +187,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(42, 218);
+            this.label4.Location = new System.Drawing.Point(405, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 20);
             this.label4.TabIndex = 0;
@@ -192,7 +197,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(22, 124);
+            this.label3.Location = new System.Drawing.Point(383, 85);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 20);
             this.label3.TabIndex = 0;
@@ -221,10 +226,10 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.userDataGridView);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(12, 297);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 271);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(738, 268);
+            this.groupBox2.Size = new System.Drawing.Size(738, 304);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "USER LIST";
@@ -235,18 +240,22 @@
             this.userDataGridView.BackgroundColor = System.Drawing.Color.DarkGray;
             this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userDataGridView.Location = new System.Drawing.Point(3, 22);
+            this.userDataGridView.Location = new System.Drawing.Point(3, 18);
             this.userDataGridView.Name = "userDataGridView";
             this.userDataGridView.RowHeadersWidth = 51;
             this.userDataGridView.RowTemplate.Height = 24;
-            this.userDataGridView.Size = new System.Drawing.Size(732, 243);
+            this.userDataGridView.Size = new System.Drawing.Size(732, 283);
             this.userDataGridView.TabIndex = 0;
-            this.userDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.userDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDataGridView_CellDoubleClick);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnClearBookInputs);
+            this.groupBox3.Controls.Add(this.btnDeleteBook);
             this.groupBox3.Controls.Add(this.comboBox2);
+            this.groupBox3.Controls.Add(this.btnUpdateBook);
             this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.btnAddBook);
             this.groupBox3.Controls.Add(this.textBox6);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.textBox8);
@@ -258,10 +267,28 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox3.Location = new System.Drawing.Point(781, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(781, 258);
+            this.groupBox3.Size = new System.Drawing.Size(781, 240);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "BOOK SECTION";
+            // 
+            // btnClearBookInputs
+            // 
+            this.btnClearBookInputs.Location = new System.Drawing.Point(597, 179);
+            this.btnClearBookInputs.Name = "btnClearBookInputs";
+            this.btnClearBookInputs.Size = new System.Drawing.Size(124, 47);
+            this.btnClearBookInputs.TabIndex = 3;
+            this.btnClearBookInputs.Text = "Clear Inputs";
+            this.btnClearBookInputs.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteBook
+            // 
+            this.btnDeleteBook.Location = new System.Drawing.Point(441, 179);
+            this.btnDeleteBook.Name = "btnDeleteBook";
+            this.btnDeleteBook.Size = new System.Drawing.Size(124, 47);
+            this.btnDeleteBook.TabIndex = 3;
+            this.btnDeleteBook.Text = "Delete";
+            this.btnDeleteBook.UseVisualStyleBackColor = true;
             // 
             // comboBox2
             // 
@@ -269,31 +296,50 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(109, 35);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(194, 28);
+            this.comboBox2.Size = new System.Drawing.Size(649, 28);
             this.comboBox2.TabIndex = 2;
+            // 
+            // btnUpdateBook
+            // 
+            this.btnUpdateBook.Location = new System.Drawing.Point(272, 179);
+            this.btnUpdateBook.Name = "btnUpdateBook";
+            this.btnUpdateBook.Size = new System.Drawing.Size(124, 47);
+            this.btnUpdateBook.TabIndex = 3;
+            this.btnUpdateBook.Text = "Update";
+            this.btnUpdateBook.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox1.Location = new System.Drawing.Point(109, 165);
+            this.textBox1.Location = new System.Drawing.Point(109, 126);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 27);
+            this.textBox1.Size = new System.Drawing.Size(288, 27);
             this.textBox1.TabIndex = 1;
+            // 
+            // btnAddBook
+            // 
+            this.btnAddBook.Location = new System.Drawing.Point(112, 179);
+            this.btnAddBook.Name = "btnAddBook";
+            this.btnAddBook.Size = new System.Drawing.Size(124, 47);
+            this.btnAddBook.TabIndex = 3;
+            this.btnAddBook.Text = "Add Book";
+            this.btnAddBook.UseVisualStyleBackColor = true;
+            this.btnAddBook.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox6.Location = new System.Drawing.Point(107, 211);
+            this.textBox6.Location = new System.Drawing.Point(497, 126);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(196, 27);
+            this.textBox6.Size = new System.Drawing.Size(261, 27);
             this.textBox6.TabIndex = 1;
             // 
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox7.Location = new System.Drawing.Point(109, 117);
+            this.textBox7.Location = new System.Drawing.Point(494, 78);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(196, 27);
+            this.textBox7.Size = new System.Drawing.Size(264, 27);
             this.textBox7.TabIndex = 1;
             // 
             // textBox8
@@ -301,14 +347,14 @@
             this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.textBox8.Location = new System.Drawing.Point(109, 78);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(196, 27);
+            this.textBox8.Size = new System.Drawing.Size(288, 27);
             this.textBox8.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label6.Location = new System.Drawing.Point(12, 172);
+            this.label6.Location = new System.Drawing.Point(12, 133);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 20);
             this.label6.TabIndex = 0;
@@ -318,7 +364,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label7.Location = new System.Drawing.Point(49, 218);
+            this.label7.Location = new System.Drawing.Point(439, 133);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(48, 20);
             this.label7.TabIndex = 0;
@@ -328,7 +374,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label8.Location = new System.Drawing.Point(42, 124);
+            this.label8.Location = new System.Drawing.Point(427, 85);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 20);
             this.label8.TabIndex = 0;
@@ -357,10 +403,10 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView2);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox4.Location = new System.Drawing.Point(781, 297);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.groupBox4.Location = new System.Drawing.Point(781, 271);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(781, 268);
+            this.groupBox4.Size = new System.Drawing.Size(781, 304);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "BOOK LIST";
@@ -370,18 +416,18 @@
             this.dataGridView2.BackgroundColor = System.Drawing.Color.DarkGray;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 22);
+            this.dataGridView2.Location = new System.Drawing.Point(3, 19);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(775, 243);
+            this.dataGridView2.Size = new System.Drawing.Size(775, 282);
             this.dataGridView2.TabIndex = 0;
             // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1574, 574);
+            this.ClientSize = new System.Drawing.Size(1572, 584);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
@@ -430,9 +476,13 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btnAddUser;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClearUserInputs;
+        private System.Windows.Forms.Button btnDeleteUser;
+        private System.Windows.Forms.Button btnUpdateUser;
+        private System.Windows.Forms.Button btnClearBookInputs;
+        private System.Windows.Forms.Button btnDeleteBook;
+        private System.Windows.Forms.Button btnUpdateBook;
+        private System.Windows.Forms.Button btnAddBook;
     }
 }
 

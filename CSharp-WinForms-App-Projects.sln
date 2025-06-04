@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Todo App", "Todo App", "{02
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library Tracking System", "Library Tracking System", "{0E297F5E-E703-4E04-9128-403B58C36701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForm", "LibraryForm\LibraryForm.csproj", "{1E6D465B-6301-45B5-A981-71B90D16E2AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library Tracking System", "LibraryForm\Library Tracking System.csproj", "{1E6D465B-6301-45B5-A981-71B90D16E2AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

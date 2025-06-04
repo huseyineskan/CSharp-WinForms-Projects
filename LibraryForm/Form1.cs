@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LibraryForm
@@ -44,11 +45,6 @@ namespace LibraryForm
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         // Methods
 
         SqlConnection connection = new SqlConnection("Data Source=ACER\\SQLEXPRESS; Initial Catalog=LibraryTS; Integrated Security=True");
@@ -64,6 +60,7 @@ namespace LibraryForm
             command.ExecuteNonQuery();
             connection.Close();
             ListAllUsers();
+            GetUserListToCombo();
             MessageBox.Show("User added.");
         }
 
@@ -83,15 +80,34 @@ namespace LibraryForm
             connection.Open();
             SqlCommand command = new SqlCommand("SELECT * FROM Users", connection);
             SqlDataReader reader = command.ExecuteReader();
+            comboUserList.Items.Clear();
 
             while (reader.Read())
             {
-                comboUserList.Items.Add(reader["UserFirstname"]);
+                comboUserList.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"]);
             }
 
             connection.Close();
         }
-        
+
+        void FillAutoInputs(int index = 0)
+        {
+            int selectedItem = index == 0 ? userDataGridView.SelectedCells[0].RowIndex : index;
+            textUserFirstname.Text = userDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
+            textUserLastname.Text = userDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
+            textUserEmail.Text = userDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
+            textUserPhone.Text = userDataGridView.Rows[selectedItem].Cells[4].Value.ToString();
+        }
+
+        private void userDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FillAutoInputs();
+        }
+
+        private void comboUserList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillAutoInputs((int)comboUserList.SelectedIndex);
+        }
     }
 
 }
