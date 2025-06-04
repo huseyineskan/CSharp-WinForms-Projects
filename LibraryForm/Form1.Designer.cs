@@ -102,6 +102,7 @@
             this.btnClearUserInputs.TabIndex = 3;
             this.btnClearUserInputs.Text = "Clear Inputs";
             this.btnClearUserInputs.UseVisualStyleBackColor = true;
+            this.btnClearUserInputs.Click += new System.EventHandler(this.btnClearUserInputs_Click);
             // 
             // btnDeleteUser
             // 

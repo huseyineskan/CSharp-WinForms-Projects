@@ -108,6 +108,16 @@ namespace LibraryForm
         {
             FillAutoInputs((int)comboUserList.SelectedIndex);
         }
+
+        private void btnClearUserInputs_Click(object sender, EventArgs e)
+        {
+            textUserFirstname.Text = "";
+            textUserLastname.Text = "";
+            textUserEmail.Text = "";
+            textUserPhone.Text = "";
+            comboUserList.ResetText();
+
+        }
     }
 
 }
