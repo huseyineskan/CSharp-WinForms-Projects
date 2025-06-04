@@ -35,7 +35,7 @@ namespace ToDo_App
             connection.Close();
         }
 
-        void AddATask(string title, string description, string status)
+        void AddATask(string title, string description, bool status)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("INSERT INTO Tasks (Title, Description, Status) VALUES (@title, @description, @status)", connection);
@@ -53,7 +53,7 @@ namespace ToDo_App
         {
             string title = textTitle.Text;
             string description = textDescription.Text;
-            string status = radioYes.Checked ? "Completed" : "Not";
+            bool status = radioYes.Checked ? true: false;
             AddATask(title, description, status);            
         }
 
@@ -64,7 +64,7 @@ namespace ToDo_App
 
             string title = textTitle.Text.Trim();
             string description = textDescription.Text.Trim();
-            string status = radioYes.Checked ? "Completed" : "Not";
+            bool status = radioYes.Checked ? true : false;
 
             if (taskIdinput && chechTask(taskId))
             {
@@ -87,24 +87,6 @@ namespace ToDo_App
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void dataViewPanel_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int selectedCell = dataViewPanel.SelectedCells[0].RowIndex;
-            textTaskId.Text = dataViewPanel.Rows[selectedCell].Cells[0].Value.ToString();
-            textTitle.Text = dataViewPanel.Rows[selectedCell].Cells[1].Value.ToString();
-            textDescription.Text = dataViewPanel.Rows[selectedCell].Cells[2].Value.ToString();
-
-            if (dataViewPanel.Rows[selectedCell].Cells[4].Value.ToString().Trim() == "Not")
-            {
-                radioNo.Checked = true;
-            }
-            else
-            {
-                radioYes.Checked = true;
-            }
-
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -148,6 +130,24 @@ namespace ToDo_App
             textTitle.Text = null;
             textDescription.Text = null;
             radioYes.Checked = true;
+        }
+
+        private void dataViewPanel_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedCell = dataViewPanel.SelectedCells[0].RowIndex;
+            textTaskId.Text = dataViewPanel.Rows[selectedCell].Cells[0].Value.ToString();
+            textTitle.Text = dataViewPanel.Rows[selectedCell].Cells[1].Value.ToString();
+            textDescription.Text = dataViewPanel.Rows[selectedCell].Cells[2].Value.ToString();
+
+            if (dataViewPanel.Rows[selectedCell].Cells[4].Value.ToString().Trim() == "False")
+            {
+                radioNo.Checked = true;
+            }
+            else
+            {
+                radioYes.Checked = true;
+            }
+
         }
     }
 }
