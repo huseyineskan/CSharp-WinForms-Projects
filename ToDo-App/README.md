@@ -5,4 +5,4 @@ CRUD operations in the project were done with ADO.net.
 
 ## Screenshot
 
-![ToDo App](https://github.com/huseyineskan/CSharp-WinForms-Projects/tree/main/ToDo-App/screenshot.png)
+![ToDo App](https://github.com/huseyineskan/CSharp-WinForms-Projects/blob/main/ToDo-App/screenshot.png)
