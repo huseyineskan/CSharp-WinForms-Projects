@@ -85,22 +85,25 @@ namespace LibraryForm
             SqlCommand command = new SqlCommand("SELECT * FROM Users", connection);
             SqlDataReader reader = command.ExecuteReader();
             comboUserList.Items.Clear();
+            comboAllUserListBookSection.Items.Clear();
 
             while (reader.Read())
             {
                 comboUserList.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"]);
+                comboAllUserListBookSection.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"] +" - "+ reader["UserId"]);
             }
 
             connection.Close();
         }
 
-        void FillUserAutoInputs(int index = 0)
+        void FillUserAutoInputs(int index = -1)
         {
-            int selectedItem = index == 0 ? userDataGridView.SelectedCells[0].RowIndex : index;
+            int selectedItem = index == -1 ? userDataGridView.SelectedCells[0].RowIndex : index;
             textUserFirstname.Text = userDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
             textUserLastname.Text = userDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
             textUserEmail.Text = userDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
             textUserPhone.Text = userDataGridView.Rows[selectedItem].Cells[4].Value.ToString();
+            comboUserList.ResetText();
 
             int userId = int.Parse(userDataGridView.Rows[selectedItem].Cells[0].Value.ToString());
             GetUserAllBooks(userId);
@@ -161,19 +164,25 @@ namespace LibraryForm
 
             while (reader.Read())
             {
-                comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
+                comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"] + " - " + reader["BookId"]);
             }
 
             connection.Close();
         }
 
-        void FillBookAutoInputs(int index = 0)
+        void FillBookAutoInputs(int index = -1)
         {
-            int selectedItem = index == 0 ? bookDataGridView.SelectedCells[0].RowIndex : index;
+            int selectedItem = index == -1 ? bookDataGridView.SelectedCells[0].RowIndex : index;
             textBookName.Text = bookDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
             textBookWriter.Text = bookDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
             textBookstore.Text = bookDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
             textBookYear.Text = bookDataGridView.Rows[selectedItem].Cells[4].Value.ToString();
+
+            comboBookList.ResetText();
+            comboAllUserListBookSection.ResetText();
+
+            int userId = int.Parse(bookDataGridView.Rows[selectedItem].Cells[6].Value.ToString());
+            BorrowerOfTheBook(userId);
         }
 
         private void comboBookList_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,6 +202,88 @@ namespace LibraryForm
             textBookstore.Text = "";
             textBookYear.Text = "";
             comboBookList.ResetText();
+        }
+
+        private void btnAddBook_Click(object sender, EventArgs e)
+        {
+            string bookname = textBookName.Text.Trim();
+            string bookwriter = textBookWriter.Text.Trim();
+            string bookstore = textBookstore.Text.Trim();
+            bool year = int.TryParse(textBookYear.Text.Trim(), out int bookYear);
+
+            if (year && !string.IsNullOrEmpty(bookname) && !string.IsNullOrEmpty(bookwriter) && !string.IsNullOrEmpty(bookstore))
+            {
+                AddBook(bookname, bookwriter, bookstore, bookYear);
+            }
+            else
+            {
+                MessageBox.Show("There is a problem. Try again!");
+            }
+        }
+
+        public void AddBook(string bookname, string bookwriter, string bookstore, int bookYear)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("INSERT INTO Books (BookName, BookWriter, Bookstore, BookYear, BookStatus, UserId) VALUES (@bookName, @bookWriter, @bookstore, @bookYear, @bookStatus, @userId)", connection);
+            command.Parameters.AddWithValue("@bookName", bookname);
+            command.Parameters.AddWithValue("@bookWriter", bookwriter);
+            command.Parameters.AddWithValue("@bookstore", bookstore);
+            command.Parameters.AddWithValue("@bookYear", bookYear);
+            command.Parameters.AddWithValue("@bookStatus", 1);
+            command.Parameters.AddWithValue("@userId", 0);
+
+            command.ExecuteNonQuery();
+            connection.Close();
+            ListAllBooks();
+            GetBookListToCombo();
+            MessageBox.Show("Book added.");
+        }
+
+        void BorrowerOfTheBook(int userId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE UserId=@userId", connection);
+            command.Parameters.AddWithValue("@userId", userId);
+            SqlDataReader reader = command.ExecuteReader();
+            comboUserBorrow.Items.Clear();
+            comboUserBorrow.ResetText();
+
+            while (reader.Read())
+            {
+                comboUserBorrow.Items.Add(reader["UserFirstname"] + ", " + reader["UserLastname"]);
+                comboUserBorrow.SelectedIndex = 0;
+            }
+            
+            connection.Close();
+        }
+
+        void LendTheBook(int bookId, int userId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("Update Books SET BookStatus=@bookStatus, UserId=@userId WHERE BookId=@bookId", connection);
+            command.Parameters.AddWithValue("@bookStatus", 0);
+            command.Parameters.AddWithValue("@userId", userId);
+            command.Parameters.AddWithValue("@bookId", bookId);
+            command.ExecuteNonQuery();
+            connection.Close();
+
+            ListAllBooks();
+            MessageBox.Show("The book was loaned.");
+        }
+
+        private void btnLendTheBook_Click(object sender, EventArgs e)
+        {
+            // Get user information and ID
+            string selectedUserInformation = comboAllUserListBookSection.SelectedItem.ToString();
+            string[] userWords = selectedUserInformation.Split(' ');
+            int userId = int.Parse(userWords[userWords.Length - 1]);
+
+            // Get book information
+            string selectedBookInformation = comboBookList.SelectedItem.ToString();
+            string[] bookWords = selectedBookInformation.Split(' ');
+            int bookId = int.Parse(bookWords[bookWords.Length - 1]);
+
+            LendTheBook(bookId, userId);
         }
     }
 }

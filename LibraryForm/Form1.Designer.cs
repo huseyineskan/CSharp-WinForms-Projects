@@ -64,6 +64,12 @@
             this.bookDataGridView = new System.Windows.Forms.DataGridView();
             this.label11 = new System.Windows.Forms.Label();
             this.listUserBooksList = new System.Windows.Forms.ListBox();
+            this.comboUserBorrow = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnLendTheBook = new System.Windows.Forms.Button();
+            this.btnReturnTheBook = new System.Windows.Forms.Button();
+            this.comboAllUserListBookSection = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
@@ -255,6 +261,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.comboAllUserListBookSection);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.btnReturnTheBook);
+            this.groupBox3.Controls.Add(this.btnLendTheBook);
+            this.groupBox3.Controls.Add(this.comboUserBorrow);
+            this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.btnClearBookInputs);
             this.groupBox3.Controls.Add(this.btnDeleteBook);
             this.groupBox3.Controls.Add(this.comboBookList);
@@ -331,7 +343,7 @@
             this.btnAddBook.TabIndex = 3;
             this.btnAddBook.Text = "Add Book";
             this.btnAddBook.UseVisualStyleBackColor = true;
-            this.btnAddBook.Click += new System.EventHandler(this.btnAddUser_Click);
+            this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
             // 
             // textBookYear
             // 
@@ -450,6 +462,63 @@
             this.listUserBooksList.Size = new System.Drawing.Size(609, 84);
             this.listUserBooksList.TabIndex = 5;
             // 
+            // comboUserBorrow
+            // 
+            this.comboUserBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboUserBorrow.FormattingEnabled = true;
+            this.comboUserBorrow.Location = new System.Drawing.Point(109, 78);
+            this.comboUserBorrow.Name = "comboUserBorrow";
+            this.comboUserBorrow.Size = new System.Drawing.Size(285, 28);
+            this.comboUserBorrow.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label12.Location = new System.Drawing.Point(44, 81);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(63, 25);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "User:";
+            // 
+            // btnLendTheBook
+            // 
+            this.btnLendTheBook.Location = new System.Drawing.Point(428, 117);
+            this.btnLendTheBook.Name = "btnLendTheBook";
+            this.btnLendTheBook.Size = new System.Drawing.Size(181, 30);
+            this.btnLendTheBook.TabIndex = 8;
+            this.btnLendTheBook.Text = "Lend the book";
+            this.btnLendTheBook.UseVisualStyleBackColor = true;
+            this.btnLendTheBook.Click += new System.EventHandler(this.btnLendTheBook_Click);
+            // 
+            // btnReturnTheBook
+            // 
+            this.btnReturnTheBook.Location = new System.Drawing.Point(428, 76);
+            this.btnReturnTheBook.Name = "btnReturnTheBook";
+            this.btnReturnTheBook.Size = new System.Drawing.Size(181, 30);
+            this.btnReturnTheBook.TabIndex = 8;
+            this.btnReturnTheBook.Text = "Return the book";
+            this.btnReturnTheBook.UseVisualStyleBackColor = true;
+            // 
+            // comboAllUserListBookSection
+            // 
+            this.comboAllUserListBookSection.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboAllUserListBookSection.FormattingEnabled = true;
+            this.comboAllUserListBookSection.Location = new System.Drawing.Point(109, 119);
+            this.comboAllUserListBookSection.Name = "comboAllUserListBookSection";
+            this.comboAllUserListBookSection.Size = new System.Drawing.Size(285, 28);
+            this.comboAllUserListBookSection.TabIndex = 10;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label13.Location = new System.Drawing.Point(44, 122);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(59, 20);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "Users:";
+            // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -512,5 +581,11 @@
         private System.Windows.Forms.Button btnAddBook;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox listUserBooksList;
+        private System.Windows.Forms.Button btnReturnTheBook;
+        private System.Windows.Forms.Button btnLendTheBook;
+        private System.Windows.Forms.ComboBox comboUserBorrow;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboAllUserListBookSection;
+        private System.Windows.Forms.Label label13;
     }
 }
