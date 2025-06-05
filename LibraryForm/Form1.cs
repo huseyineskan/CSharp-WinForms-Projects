@@ -23,9 +23,11 @@ namespace LibraryForm
 
         private void LibraryForm_Load(object sender, EventArgs e)
         {
+            // USER SECTION
             ListAllUsers();
             GetUserListToCombo();
 
+            //BOOK SECTION
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
@@ -97,6 +99,9 @@ namespace LibraryForm
             textUserLastname.Text = userDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
             textUserEmail.Text = userDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
             textUserPhone.Text = userDataGridView.Rows[selectedItem].Cells[4].Value.ToString();
+
+            int userId = int.Parse(userDataGridView.Rows[selectedItem].Cells[0].Value.ToString());
+            GetUserAllBooks(userId);
         }
 
         private void userDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -116,8 +121,21 @@ namespace LibraryForm
             textUserEmail.Text = "";
             textUserPhone.Text = "";
             comboUserList.ResetText();
+        }
 
+        void GetUserAllBooks(int userId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SELECT * FROM Books WHERE UserId=@userId", connection);
+            command.Parameters.AddWithValue("@userId", userId);
+            SqlDataReader reader = command.ExecuteReader();
+            listUserBooksList.Items.Clear();
+
+            while (reader.Read())
+            {
+                listUserBooksList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
+            }
+            connection.Close();
         }
     }
-
 }

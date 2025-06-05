@@ -62,6 +62,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.listUserBooksList = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
@@ -72,6 +74,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.listUserBooksList);
             this.groupBox1.Controls.Add(this.btnClearUserInputs);
             this.groupBox1.Controls.Add(this.btnDeleteUser);
             this.groupBox1.Controls.Add(this.btnUpdateUser);
@@ -85,18 +88,19 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(738, 240);
+            this.groupBox1.Size = new System.Drawing.Size(738, 321);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "USER SECTION";
             // 
             // btnClearUserInputs
             // 
-            this.btnClearUserInputs.Location = new System.Drawing.Point(594, 179);
+            this.btnClearUserInputs.Location = new System.Drawing.Point(593, 259);
             this.btnClearUserInputs.Name = "btnClearUserInputs";
             this.btnClearUserInputs.Size = new System.Drawing.Size(124, 47);
             this.btnClearUserInputs.TabIndex = 3;
@@ -106,7 +110,7 @@
             // 
             // btnDeleteUser
             // 
-            this.btnDeleteUser.Location = new System.Drawing.Point(438, 179);
+            this.btnDeleteUser.Location = new System.Drawing.Point(437, 259);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(124, 47);
             this.btnDeleteUser.TabIndex = 3;
@@ -115,7 +119,7 @@
             // 
             // btnUpdateUser
             // 
-            this.btnUpdateUser.Location = new System.Drawing.Point(269, 179);
+            this.btnUpdateUser.Location = new System.Drawing.Point(268, 259);
             this.btnUpdateUser.Name = "btnUpdateUser";
             this.btnUpdateUser.Size = new System.Drawing.Size(124, 47);
             this.btnUpdateUser.TabIndex = 3;
@@ -124,7 +128,7 @@
             // 
             // btnAddUser
             // 
-            this.btnAddUser.Location = new System.Drawing.Point(109, 179);
+            this.btnAddUser.Location = new System.Drawing.Point(108, 259);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(124, 47);
             this.btnAddUser.TabIndex = 3;
@@ -145,7 +149,7 @@
             // textUserEmail
             // 
             this.textUserEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserEmail.Location = new System.Drawing.Point(109, 126);
+            this.textUserEmail.Location = new System.Drawing.Point(108, 206);
             this.textUserEmail.Name = "textUserEmail";
             this.textUserEmail.Size = new System.Drawing.Size(241, 27);
             this.textUserEmail.TabIndex = 1;
@@ -153,7 +157,7 @@
             // textUserPhone
             // 
             this.textUserPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserPhone.Location = new System.Drawing.Point(470, 126);
+            this.textUserPhone.Location = new System.Drawing.Point(469, 206);
             this.textUserPhone.Name = "textUserPhone";
             this.textUserPhone.Size = new System.Drawing.Size(248, 27);
             this.textUserPhone.TabIndex = 1;
@@ -161,7 +165,7 @@
             // textUserLastname
             // 
             this.textUserLastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserLastname.Location = new System.Drawing.Point(470, 78);
+            this.textUserLastname.Location = new System.Drawing.Point(469, 166);
             this.textUserLastname.Name = "textUserLastname";
             this.textUserLastname.Size = new System.Drawing.Size(248, 27);
             this.textUserLastname.TabIndex = 1;
@@ -169,7 +173,7 @@
             // textUserFirstname
             // 
             this.textUserFirstname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textUserFirstname.Location = new System.Drawing.Point(109, 78);
+            this.textUserFirstname.Location = new System.Drawing.Point(108, 166);
             this.textUserFirstname.Name = "textUserFirstname";
             this.textUserFirstname.Size = new System.Drawing.Size(241, 27);
             this.textUserFirstname.TabIndex = 1;
@@ -178,7 +182,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(38, 133);
+            this.label5.Location = new System.Drawing.Point(37, 213);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 20);
             this.label5.TabIndex = 0;
@@ -188,7 +192,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(405, 133);
+            this.label4.Location = new System.Drawing.Point(404, 213);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 20);
             this.label4.TabIndex = 0;
@@ -198,7 +202,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(383, 85);
+            this.label3.Location = new System.Drawing.Point(382, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 20);
             this.label3.TabIndex = 0;
@@ -208,7 +212,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label2.Location = new System.Drawing.Point(14, 85);
+            this.label2.Location = new System.Drawing.Point(13, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 20);
             this.label2.TabIndex = 0;
@@ -228,7 +232,7 @@
             // 
             this.groupBox2.Controls.Add(this.userDataGridView);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 271);
+            this.groupBox2.Location = new System.Drawing.Point(12, 355);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(738, 304);
             this.groupBox2.TabIndex = 1;
@@ -405,7 +409,7 @@
             // 
             this.groupBox4.Controls.Add(this.dataGridView2);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.groupBox4.Location = new System.Drawing.Point(781, 271);
+            this.groupBox4.Location = new System.Drawing.Point(781, 355);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(781, 304);
             this.groupBox4.TabIndex = 1;
@@ -424,11 +428,30 @@
             this.dataGridView2.Size = new System.Drawing.Size(775, 282);
             this.dataGridView2.TabIndex = 0;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label11.Location = new System.Drawing.Point(0, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(102, 20);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "User Books:";
+            // 
+            // listUserBooksList
+            // 
+            this.listUserBooksList.FormattingEnabled = true;
+            this.listUserBooksList.ItemHeight = 20;
+            this.listUserBooksList.Location = new System.Drawing.Point(108, 76);
+            this.listUserBooksList.Name = "listUserBooksList";
+            this.listUserBooksList.Size = new System.Drawing.Size(609, 84);
+            this.listUserBooksList.TabIndex = 5;
+            // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1572, 584);
+            this.ClientSize = new System.Drawing.Size(1572, 671);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
@@ -484,6 +507,7 @@
         private System.Windows.Forms.Button btnDeleteBook;
         private System.Windows.Forms.Button btnUpdateBook;
         private System.Windows.Forms.Button btnAddBook;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox listUserBooksList;
     }
 }
-
