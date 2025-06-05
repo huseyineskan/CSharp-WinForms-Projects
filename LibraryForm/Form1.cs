@@ -28,6 +28,8 @@ namespace LibraryForm
             GetUserListToCombo();
 
             //BOOK SECTION
+            ListAllBooks();
+            GetBookListToCombo();
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
@@ -92,7 +94,7 @@ namespace LibraryForm
             connection.Close();
         }
 
-        void FillAutoInputs(int index = 0)
+        void FillUserAutoInputs(int index = 0)
         {
             int selectedItem = index == 0 ? userDataGridView.SelectedCells[0].RowIndex : index;
             textUserFirstname.Text = userDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
@@ -106,12 +108,12 @@ namespace LibraryForm
 
         private void userDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            FillAutoInputs();
+            FillUserAutoInputs();
         }
 
         private void comboUserList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillAutoInputs((int)comboUserList.SelectedIndex);
+            FillUserAutoInputs((int)comboUserList.SelectedIndex);
         }
 
         private void btnClearUserInputs_Click(object sender, EventArgs e)
@@ -136,6 +138,61 @@ namespace LibraryForm
                 listUserBooksList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
             }
             connection.Close();
+        }
+
+        //BOOK SECTION
+        public void ListAllBooks()
+        {
+            connection.Open();
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Books", connection);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+
+            bookDataGridView.DataSource = table;
+            connection.Close();
+        }
+
+        public void GetBookListToCombo()
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SELECT * FROM Books", connection);
+            SqlDataReader reader = command.ExecuteReader();
+            comboBookList.Items.Clear();
+
+            while (reader.Read())
+            {
+                comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
+            }
+
+            connection.Close();
+        }
+
+        void FillBookAutoInputs(int index = 0)
+        {
+            int selectedItem = index == 0 ? bookDataGridView.SelectedCells[0].RowIndex : index;
+            textBookName.Text = bookDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
+            textBookWriter.Text = bookDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
+            textBookstore.Text = bookDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
+            textBookYear.Text = bookDataGridView.Rows[selectedItem].Cells[4].Value.ToString();
+        }
+
+        private void comboBookList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillBookAutoInputs((int)comboBookList.SelectedIndex);
+        }
+
+        private void bookDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FillBookAutoInputs();
+        }
+
+        private void btnClearBookInputs_Click(object sender, EventArgs e)
+        {
+            textBookName.Text = "";
+            textBookWriter.Text = "";
+            textBookstore.Text = "";
+            textBookYear.Text = "";
+            comboBookList.ResetText();
         }
     }
 }
