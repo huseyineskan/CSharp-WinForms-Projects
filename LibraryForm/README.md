@@ -9,7 +9,7 @@ A library tracking system that allows us to track users and books.
 
 ## Screenshot
 
-![Library Tracking System](https://github.com/huseyineskan/CSharp-WinForms-Projects/tree/main/LibraryForm/screenshot.png)
+![Library Tracking System](https://github.com/huseyineskan/CSharp-WinForms-Projects/blob/main/LibraryForm/screenshot.png)
 
 ## Features that can be added
 - User login.
