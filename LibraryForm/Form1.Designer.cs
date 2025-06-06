@@ -431,6 +431,7 @@
             this.btnDeleteBook.TabIndex = 3;
             this.btnDeleteBook.Text = "Delete";
             this.btnDeleteBook.UseVisualStyleBackColor = true;
+            this.btnDeleteBook.Click += new System.EventHandler(this.btnDeleteBook_Click);
             // 
             // comboBookList
             // 
@@ -450,6 +451,7 @@
             this.btnUpdateBook.TabIndex = 3;
             this.btnUpdateBook.Text = "Update";
             this.btnUpdateBook.UseVisualStyleBackColor = true;
+            this.btnUpdateBook.Click += new System.EventHandler(this.btnUpdateBook_Click);
             // 
             // textBookstore
             // 

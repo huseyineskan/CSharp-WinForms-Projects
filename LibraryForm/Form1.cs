@@ -23,6 +23,8 @@ namespace LibraryForm
             InitializeComponent();
         }
 
+        SqlConnection connection = new SqlConnection("Data Source=ACER\\SQLEXPRESS; Initial Catalog=LibraryTS; Integrated Security=True");
+
         private void LibraryForm_Load(object sender, EventArgs e)
         {
             RefreshUserSection();
@@ -100,32 +102,59 @@ namespace LibraryForm
             {
                 MessageBox.Show("Try again!");
             }
-            
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            int userId = int.Parse(labelSelectedUserId.Text);
+            DeleteUser();
+        }
 
-            if(userId > 0)
+        private void DeleteUser()
+        {
+            bool isNumber = int.TryParse(labelSelectedUserId.Text, out int userId);
+
+            if(isNumber)
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("DELETE From Users WHERE UserId=@userId", connection);
-                command.Parameters.AddWithValue("@userId", userId);
-                command.ExecuteNonQuery();
+                if (!HasUserABook(userId))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("DELETE From Users WHERE UserId=@userId", connection);
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.ExecuteNonQuery();
 
-                command.Dispose();
-                connection.Close();
+                    command.Dispose();
+                    connection.Close();
 
-                RefreshUserSection();
-                ClearAllUserInputs();
-                MessageBox.Show("User Deleted.");
+                    RefreshUserSection();
+                    ClearAllUserInputs();
+                    MessageBox.Show("User Deleted.");
+                }
+                else
+                {
+                    MessageBox.Show("User has a book on loan. User cannot be deleted.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error. Try again.");
             }
         }
 
-        // Methods
+        private bool HasUserABook(int userId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SELECT * From Books WHERE UserId=@userId", connection);
+            command.Parameters.AddWithValue("@userId", userId);
+            SqlDataReader reader = command.ExecuteReader();
+            var result = reader.HasRows;
+            command.Dispose();
+            connection.Close();
 
-        SqlConnection connection = new SqlConnection("Data Source=ACER\\SQLEXPRESS; Initial Catalog=LibraryTS; Integrated Security=True");
+            if (result)
+                return true;
+
+            return false;
+        }
 
         public void AddUser(string username, string lastname, string useremail, int userphone)
         {
@@ -166,7 +195,7 @@ namespace LibraryForm
             while (reader.Read())
             {
                 comboUserList.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"]);
-                comboAllUserListBookSection.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"] + " " + reader["UserId"]);
+                comboAllUserListBookSection.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"] + " - " + reader["UserId"]);
             }
 
             connection.Close();
@@ -250,7 +279,7 @@ namespace LibraryForm
 
             while (reader.Read())
             {
-                comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"] + " - " + reader["BookId"]);
+                comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
             }
             command.Dispose();
             connection.Close();
@@ -269,8 +298,10 @@ namespace LibraryForm
             comboAllUserListBookSection.ResetText();
             labelAllUserSelectedId.Text = "";
 
-            int userId = int.Parse(bookDataGridView.Rows[selectedItem].Cells[6].Value.ToString());
-            BorrowerOfTheBook(userId);
+
+            bool isNumber = int.TryParse(bookDataGridView.Rows[selectedItem].Cells[6].Value.ToString(), out int userId);
+            if(isNumber) 
+                BorrowerOfTheBook(userId);
         }
 
         private void comboBookList_SelectedIndexChanged(object sender, EventArgs e)
@@ -295,6 +326,7 @@ namespace LibraryForm
             textBookYear.Text = "";
             labelSelectedBookId.Text = "";
             labelAllUserSelectedId.Text = "";
+            comboUserBorrow.ResetText();
             comboUserBorrow.Items.Clear();
             comboBookList.ResetText();
             comboAllUserListBookSection.ResetText();
@@ -436,6 +468,74 @@ namespace LibraryForm
             bool isNumber = int.TryParse(words[words.Length - 1], out int userId);
             
             if(isNumber) labelAllUserSelectedId.Text = userId.ToString();
+        }
+
+        private void btnDeleteBook_Click(object sender, EventArgs e)
+        {
+            DeleteBook();
+        }
+
+        private void DeleteBook()
+        {
+            bool isNumber = int.TryParse(labelSelectedBookId.Text, out int bookId);
+
+            if (isNumber)
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("DELETE From Books WHERE BookId=@bookId", connection);
+                command.Parameters.AddWithValue("@bookId", bookId);
+                command.ExecuteNonQuery();
+
+                command.Dispose();
+                connection.Close();
+
+                RefreshBookSection();
+                ClearAllBookInputs();
+                MessageBox.Show("Book Deleted.");
+            }
+            else
+            {
+                MessageBox.Show("Error. Please try again!");
+            }
+        }
+
+        private void btnUpdateBook_Click(object sender, EventArgs e)
+        {
+            bool isNumber = int.TryParse(labelSelectedBookId.Text, out int bookId);
+
+            if (isNumber)
+            {
+                string bookName = textBookName.Text.Trim();
+                string bookWriter = textBookWriter.Text.Trim();
+                string bookstore = textBookstore.Text.Trim();
+
+                bool isNumberYear = int.TryParse(textBookYear.Text.Trim(), out int bookYear);
+
+                if (isNumberYear && !string.IsNullOrEmpty(bookName) && !string.IsNullOrEmpty(bookWriter) && !string.IsNullOrEmpty(bookstore))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE Books SET BookName=@bookName, BookWriter=@bookWriter, Bookstore=@bookstore, BookYear=@bookYear WHERE BookId=@bookId", connection);
+                    command.Parameters.AddWithValue("@bookName", bookName);
+                    command.Parameters.AddWithValue("@bookWriter", bookWriter);
+                    command.Parameters.AddWithValue("@bookstore", bookstore);
+                    command.Parameters.AddWithValue("@bookYear", bookYear);
+                    command.Parameters.AddWithValue("@bookId", bookId);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                    connection.Close();
+
+                    RefreshBookSection();
+                    MessageBox.Show("Book updated.");
+                }
+                else
+                {
+                    MessageBox.Show("Error. Try again!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Try again!");
+            }
         }
     }
 }
