@@ -64,21 +64,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryTSDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryTSDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryTSDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryTSDataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="LibraryTSDataSet2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryTSDataSet2.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,39 +100,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="LibraryTSDataSet.xsc">
-      <DependentUpon>LibraryTSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryTSDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LibraryTSDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LibraryTSDataSet.xss">
-      <DependentUpon>LibraryTSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryTSDataSet1.xsc">
-      <DependentUpon>LibraryTSDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryTSDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LibraryTSDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LibraryTSDataSet1.xss">
-      <DependentUpon>LibraryTSDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryTSDataSet2.xsc">
-      <DependentUpon>LibraryTSDataSet2.xsd</DependentUpon>
-    </None>
-    <None Include="LibraryTSDataSet2.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LibraryTSDataSet2.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LibraryTSDataSet2.xss">
-      <DependentUpon>LibraryTSDataSet2.xsd</DependentUpon>
-    </None>
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
