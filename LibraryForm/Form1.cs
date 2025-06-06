@@ -6,10 +6,12 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LibraryForm
@@ -23,10 +25,31 @@ namespace LibraryForm
 
         private void LibraryForm_Load(object sender, EventArgs e)
         {
+            RefreshUserSection();
+            RefreshBookSection();
+            labelSelectedUserId.Text = "";
+            labelSelectedUserId.Hide();
+
+            labelSelectedBookId.Text = "";
+            labelSelectedBookId.Hide();
+
+            labelBookOwnerId.Text = "";
+            labelBookOwnerId.Hide();
+
+            labelAllUserSelectedId.Text = "";
+            labelAllUserSelectedId.Hide();
+
+        }
+
+        private void RefreshUserSection()
+        {
             // USER SECTION
             ListAllUsers();
             GetUserListToCombo();
+        }
 
+        private void RefreshBookSection()
+        {
             //BOOK SECTION
             ListAllBooks();
             GetBookListToCombo();
@@ -40,12 +63,63 @@ namespace LibraryForm
             bool phone = int.TryParse(textUserPhone.Text.Trim(), out int userPhone);
             
             if(phone && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(email))
-            {
                 AddUser(username, lastname, email, userPhone);
+            else
+                MessageBox.Show("There is a problem. Try again!");
+        }
+
+        private void btnUpdateUser_Click(object sender, EventArgs e)
+        {
+            bool isNumber = int.TryParse(labelSelectedUserId.Text, out int userId);
+
+            if (isNumber)
+            {
+                string userFirstname = textUserFirstname.Text.Trim();
+                string userLastname = textUserLastname.Text.Trim();
+                string userEmail = textUserEmail.Text.Trim();
+                bool phone = int.TryParse(textUserPhone.Text.Trim(), out int userPhone);
+
+                if (phone && !string.IsNullOrEmpty(userFirstname) && !string.IsNullOrEmpty(userLastname) && !string.IsNullOrEmpty(userEmail))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE Users SET UserFirstname=@userFirstname, UserLastname=@userLastname, UserEmail=@userEmail, UserPhone=@userPhone WHERE UserId=@userId", connection);
+                    command.Parameters.AddWithValue("@userFirstname", userFirstname);
+                    command.Parameters.AddWithValue("@UserLastname", userLastname);
+                    command.Parameters.AddWithValue("@UserEmail", userEmail);
+                    command.Parameters.AddWithValue("@UserPhone", userPhone);
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                    connection.Close();
+
+                    RefreshUserSection();
+                    MessageBox.Show("User updated.");
+                }
             }
             else
             {
-                MessageBox.Show("There is a problem. Try again!");
+                MessageBox.Show("Try again!");
+            }
+            
+        }
+
+        private void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            int userId = int.Parse(labelSelectedUserId.Text);
+
+            if(userId > 0)
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("DELETE From Users WHERE UserId=@userId", connection);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.ExecuteNonQuery();
+
+                command.Dispose();
+                connection.Close();
+
+                RefreshUserSection();
+                ClearAllUserInputs();
+                MessageBox.Show("User Deleted.");
             }
         }
 
@@ -62,9 +136,11 @@ namespace LibraryForm
             command.Parameters.AddWithValue("@userEmail", useremail);
             command.Parameters.AddWithValue("@userPhone", userphone);
             command.ExecuteNonQuery();
+            command.Dispose();
             connection.Close();
-            ListAllUsers();
-            GetUserListToCombo();
+
+            ClearAllUserInputs();
+            RefreshUserSection();
             MessageBox.Show("User added.");
         }
 
@@ -90,7 +166,7 @@ namespace LibraryForm
             while (reader.Read())
             {
                 comboUserList.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"]);
-                comboAllUserListBookSection.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"] +" - "+ reader["UserId"]);
+                comboAllUserListBookSection.Items.Add(reader["UserFirstname"] + " " + reader["UserLastname"] + " " + reader["UserId"]);
             }
 
             connection.Close();
@@ -99,6 +175,7 @@ namespace LibraryForm
         void FillUserAutoInputs(int index = -1)
         {
             int selectedItem = index == -1 ? userDataGridView.SelectedCells[0].RowIndex : index;
+            labelSelectedUserId.Text = userDataGridView.Rows[selectedItem].Cells[0].Value.ToString();
             textUserFirstname.Text = userDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
             textUserLastname.Text = userDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
             textUserEmail.Text = userDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
@@ -121,10 +198,17 @@ namespace LibraryForm
 
         private void btnClearUserInputs_Click(object sender, EventArgs e)
         {
+            ClearAllUserInputs();
+        }
+
+        private void ClearAllUserInputs()
+        {
             textUserFirstname.Text = "";
             textUserLastname.Text = "";
             textUserEmail.Text = "";
             textUserPhone.Text = "";
+            labelSelectedUserId.Text = "";
+            listUserBooksList.Items.Clear();
             comboUserList.ResetText();
         }
 
@@ -140,6 +224,7 @@ namespace LibraryForm
             {
                 listUserBooksList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"]);
             }
+            command.Dispose();
             connection.Close();
         }
 
@@ -152,6 +237,7 @@ namespace LibraryForm
             adapter.Fill(table);
 
             bookDataGridView.DataSource = table;
+            adapter.Dispose();
             connection.Close();
         }
 
@@ -166,13 +252,14 @@ namespace LibraryForm
             {
                 comboBookList.Items.Add(reader["BookName"] + ", " + reader["BookWriter"] + ", " + reader["BookYear"] + " - " + reader["BookId"]);
             }
-
+            command.Dispose();
             connection.Close();
         }
 
         void FillBookAutoInputs(int index = -1)
         {
             int selectedItem = index == -1 ? bookDataGridView.SelectedCells[0].RowIndex : index;
+            labelSelectedBookId.Text = bookDataGridView.Rows[selectedItem].Cells[0].Value.ToString();
             textBookName.Text = bookDataGridView.Rows[selectedItem].Cells[1].Value.ToString();
             textBookWriter.Text = bookDataGridView.Rows[selectedItem].Cells[2].Value.ToString();
             textBookstore.Text = bookDataGridView.Rows[selectedItem].Cells[3].Value.ToString();
@@ -180,6 +267,7 @@ namespace LibraryForm
 
             comboBookList.ResetText();
             comboAllUserListBookSection.ResetText();
+            labelAllUserSelectedId.Text = "";
 
             int userId = int.Parse(bookDataGridView.Rows[selectedItem].Cells[6].Value.ToString());
             BorrowerOfTheBook(userId);
@@ -197,11 +285,19 @@ namespace LibraryForm
 
         private void btnClearBookInputs_Click(object sender, EventArgs e)
         {
+            ClearAllBookInputs();
+        }
+
+        private void ClearAllBookInputs() {
             textBookName.Text = "";
             textBookWriter.Text = "";
             textBookstore.Text = "";
             textBookYear.Text = "";
+            labelSelectedBookId.Text = "";
+            labelAllUserSelectedId.Text = "";
+            comboUserBorrow.Items.Clear();
             comboBookList.ResetText();
+            comboAllUserListBookSection.ResetText();
         }
 
         private void btnAddBook_Click(object sender, EventArgs e)
@@ -231,11 +327,11 @@ namespace LibraryForm
             command.Parameters.AddWithValue("@bookYear", bookYear);
             command.Parameters.AddWithValue("@bookStatus", 1);
             command.Parameters.AddWithValue("@userId", 0);
-
             command.ExecuteNonQuery();
+            command.Dispose();
             connection.Close();
-            ListAllBooks();
-            GetBookListToCombo();
+
+            RefreshBookSection();
             MessageBox.Show("Book added.");
         }
 
@@ -252,38 +348,94 @@ namespace LibraryForm
             {
                 comboUserBorrow.Items.Add(reader["UserFirstname"] + ", " + reader["UserLastname"]);
                 comboUserBorrow.SelectedIndex = 0;
+                labelBookOwnerId.Text = reader["UserId"].ToString();
             }
-            
+
+            command.Dispose();
             connection.Close();
         }
 
         void LendTheBook(int bookId, int userId)
         {
             connection.Open();
-            SqlCommand command = new SqlCommand("Update Books SET BookStatus=@bookStatus, UserId=@userId WHERE BookId=@bookId", connection);
-            command.Parameters.AddWithValue("@bookStatus", 0);
+            SqlCommand command = new SqlCommand("SELECT UserId From Books WHERE UserId=@userId", connection);
             command.Parameters.AddWithValue("@userId", userId);
+            SqlDataReader reader = command.ExecuteReader();
+            var result = reader.HasRows;
+            command.Dispose();
+            connection.Close();
+
+            if (!result)
+            {
+                connection.Open();
+                command = new SqlCommand("Update Books SET BookStatus=@bookStatus, UserId=@userId WHERE BookId=@bookId", connection);
+                command.Parameters.AddWithValue("@bookStatus", 0);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@bookId", bookId);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+
+                ListAllBooks();
+                ClearAllBookInputs();
+                MessageBox.Show("The book was loaned.");
+            }
+            else
+            {
+                MessageBox.Show("The book is somewhere else!");
+            }
+        }
+
+        void ReturnTheBook(int bookId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("Update Books SET BookStatus=@bookStatus, UserId=@userId WHERE BookId=@bookId", connection);
+            command.Parameters.AddWithValue("@bookStatus", 1);
+            command.Parameters.AddWithValue("@userId", 0);
             command.Parameters.AddWithValue("@bookId", bookId);
             command.ExecuteNonQuery();
+            command.Dispose();
             connection.Close();
 
             ListAllBooks();
-            MessageBox.Show("The book was loaned.");
+            ClearAllBookInputs();
+            MessageBox.Show("The book was returned.");
         }
 
         private void btnLendTheBook_Click(object sender, EventArgs e)
         {
             // Get user information and ID
-            string selectedUserInformation = comboAllUserListBookSection.SelectedItem.ToString();
-            string[] userWords = selectedUserInformation.Split(' ');
-            int userId = int.Parse(userWords[userWords.Length - 1]);
+            bool isNumberUserId = int.TryParse(labelAllUserSelectedId.Text, out int userId);
 
             // Get book information
-            string selectedBookInformation = comboBookList.SelectedItem.ToString();
-            string[] bookWords = selectedBookInformation.Split(' ');
-            int bookId = int.Parse(bookWords[bookWords.Length - 1]);
+            bool isNumberBookId = int.TryParse(labelSelectedBookId.Text, out int bookId);
 
-            LendTheBook(bookId, userId);
+            if (isNumberUserId && isNumberBookId)
+            {
+                LendTheBook(bookId, userId);
+            }
+            else
+            {
+                MessageBox.Show("The is a problem. Try again!");
+            }
+        }
+
+        private void btnReturnTheBook_Click(object sender, EventArgs e)
+        {
+            // Get book information
+            int bookId = int.Parse(labelSelectedBookId.Text);
+
+            if (bookId > 0)
+                ReturnTheBook(bookId);
+        }
+
+        private void comboAllUserListBookSection_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string nameStr = comboAllUserListBookSection.SelectedItem.ToString();
+            string[] words = nameStr.Split(' ');
+            bool isNumber = int.TryParse(words[words.Length - 1], out int userId);
+            
+            if(isNumber) labelAllUserSelectedId.Text = userId.ToString();
         }
     }
 }

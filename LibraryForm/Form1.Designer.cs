@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSelectedUserId = new System.Windows.Forms.Label();
+            this.listUserBooksList = new System.Windows.Forms.ListBox();
             this.btnClearUserInputs = new System.Windows.Forms.Button();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.btnUpdateUser = new System.Windows.Forms.Button();
@@ -42,10 +44,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.userDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.labelAllUserSelectedId = new System.Windows.Forms.Label();
+            this.labelBookOwnerId = new System.Windows.Forms.Label();
+            this.labelSelectedBookId = new System.Windows.Forms.Label();
+            this.comboAllUserListBookSection = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.btnReturnTheBook = new System.Windows.Forms.Button();
+            this.btnLendTheBook = new System.Windows.Forms.Button();
+            this.comboUserBorrow = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.btnClearBookInputs = new System.Windows.Forms.Button();
             this.btnDeleteBook = new System.Windows.Forms.Button();
             this.comboBookList = new System.Windows.Forms.ComboBox();
@@ -62,14 +74,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.bookDataGridView = new System.Windows.Forms.DataGridView();
-            this.label11 = new System.Windows.Forms.Label();
-            this.listUserBooksList = new System.Windows.Forms.ListBox();
-            this.comboUserBorrow = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.btnLendTheBook = new System.Windows.Forms.Button();
-            this.btnReturnTheBook = new System.Windows.Forms.Button();
-            this.comboAllUserListBookSection = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
@@ -80,6 +84,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelSelectedUserId);
             this.groupBox1.Controls.Add(this.listUserBooksList);
             this.groupBox1.Controls.Add(this.btnClearUserInputs);
             this.groupBox1.Controls.Add(this.btnDeleteUser);
@@ -104,6 +109,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "USER SECTION";
             // 
+            // labelSelectedUserId
+            // 
+            this.labelSelectedUserId.AutoSize = true;
+            this.labelSelectedUserId.Location = new System.Drawing.Point(321, 173);
+            this.labelSelectedUserId.Name = "labelSelectedUserId";
+            this.labelSelectedUserId.Size = new System.Drawing.Size(55, 20);
+            this.labelSelectedUserId.TabIndex = 6;
+            this.labelSelectedUserId.Text = "userId";
+            // 
+            // listUserBooksList
+            // 
+            this.listUserBooksList.FormattingEnabled = true;
+            this.listUserBooksList.ItemHeight = 20;
+            this.listUserBooksList.Location = new System.Drawing.Point(108, 76);
+            this.listUserBooksList.Name = "listUserBooksList";
+            this.listUserBooksList.Size = new System.Drawing.Size(609, 84);
+            this.listUserBooksList.TabIndex = 5;
+            // 
             // btnClearUserInputs
             // 
             this.btnClearUserInputs.Location = new System.Drawing.Point(593, 259);
@@ -122,6 +145,7 @@
             this.btnDeleteUser.TabIndex = 3;
             this.btnDeleteUser.Text = "Delete";
             this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
             // btnUpdateUser
             // 
@@ -131,6 +155,7 @@
             this.btnUpdateUser.TabIndex = 3;
             this.btnUpdateUser.Text = "Update";
             this.btnUpdateUser.UseVisualStyleBackColor = true;
+            this.btnUpdateUser.Click += new System.EventHandler(this.btnUpdateUser_Click);
             // 
             // btnAddUser
             // 
@@ -148,7 +173,7 @@
             this.comboUserList.FormattingEnabled = true;
             this.comboUserList.Location = new System.Drawing.Point(109, 35);
             this.comboUserList.Name = "comboUserList";
-            this.comboUserList.Size = new System.Drawing.Size(609, 28);
+            this.comboUserList.Size = new System.Drawing.Size(608, 28);
             this.comboUserList.TabIndex = 2;
             this.comboUserList.SelectedIndexChanged += new System.EventHandler(this.comboUserList_SelectedIndexChanged);
             // 
@@ -224,6 +249,16 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Firstname:";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label11.Location = new System.Drawing.Point(0, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(102, 20);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "User Books:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -261,6 +296,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.labelAllUserSelectedId);
+            this.groupBox3.Controls.Add(this.labelBookOwnerId);
+            this.groupBox3.Controls.Add(this.labelSelectedBookId);
             this.groupBox3.Controls.Add(this.comboAllUserListBookSection);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.btnReturnTheBook);
@@ -288,6 +326,92 @@
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "BOOK SECTION";
+            // 
+            // labelAllUserSelectedId
+            // 
+            this.labelAllUserSelectedId.AutoSize = true;
+            this.labelAllUserSelectedId.Location = new System.Drawing.Point(367, 122);
+            this.labelAllUserSelectedId.Name = "labelAllUserSelectedId";
+            this.labelAllUserSelectedId.Size = new System.Drawing.Size(55, 20);
+            this.labelAllUserSelectedId.TabIndex = 12;
+            this.labelAllUserSelectedId.Text = "userId";
+            // 
+            // labelBookOwnerId
+            // 
+            this.labelBookOwnerId.AutoSize = true;
+            this.labelBookOwnerId.Location = new System.Drawing.Point(365, 81);
+            this.labelBookOwnerId.Name = "labelBookOwnerId";
+            this.labelBookOwnerId.Size = new System.Drawing.Size(55, 20);
+            this.labelBookOwnerId.TabIndex = 11;
+            this.labelBookOwnerId.Text = "userId";
+            // 
+            // labelSelectedBookId
+            // 
+            this.labelSelectedBookId.AutoSize = true;
+            this.labelSelectedBookId.Location = new System.Drawing.Point(369, 165);
+            this.labelSelectedBookId.Name = "labelSelectedBookId";
+            this.labelSelectedBookId.Size = new System.Drawing.Size(57, 20);
+            this.labelSelectedBookId.TabIndex = 7;
+            this.labelSelectedBookId.Text = "bookId";
+            // 
+            // comboAllUserListBookSection
+            // 
+            this.comboAllUserListBookSection.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboAllUserListBookSection.FormattingEnabled = true;
+            this.comboAllUserListBookSection.Location = new System.Drawing.Point(109, 119);
+            this.comboAllUserListBookSection.Name = "comboAllUserListBookSection";
+            this.comboAllUserListBookSection.Size = new System.Drawing.Size(284, 28);
+            this.comboAllUserListBookSection.TabIndex = 10;
+            this.comboAllUserListBookSection.SelectedValueChanged += new System.EventHandler(this.comboAllUserListBookSection_SelectedValueChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label13.Location = new System.Drawing.Point(44, 122);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(59, 20);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "Users:";
+            // 
+            // btnReturnTheBook
+            // 
+            this.btnReturnTheBook.Location = new System.Drawing.Point(428, 76);
+            this.btnReturnTheBook.Name = "btnReturnTheBook";
+            this.btnReturnTheBook.Size = new System.Drawing.Size(181, 30);
+            this.btnReturnTheBook.TabIndex = 8;
+            this.btnReturnTheBook.Text = "Return the book";
+            this.btnReturnTheBook.UseVisualStyleBackColor = true;
+            this.btnReturnTheBook.Click += new System.EventHandler(this.btnReturnTheBook_Click);
+            // 
+            // btnLendTheBook
+            // 
+            this.btnLendTheBook.Location = new System.Drawing.Point(428, 117);
+            this.btnLendTheBook.Name = "btnLendTheBook";
+            this.btnLendTheBook.Size = new System.Drawing.Size(181, 30);
+            this.btnLendTheBook.TabIndex = 8;
+            this.btnLendTheBook.Text = "Lend the book";
+            this.btnLendTheBook.UseVisualStyleBackColor = true;
+            this.btnLendTheBook.Click += new System.EventHandler(this.btnLendTheBook_Click);
+            // 
+            // comboUserBorrow
+            // 
+            this.comboUserBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboUserBorrow.FormattingEnabled = true;
+            this.comboUserBorrow.Location = new System.Drawing.Point(109, 78);
+            this.comboUserBorrow.Name = "comboUserBorrow";
+            this.comboUserBorrow.Size = new System.Drawing.Size(284, 28);
+            this.comboUserBorrow.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label12.Location = new System.Drawing.Point(44, 81);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(50, 20);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "User:";
             // 
             // btnClearBookInputs
             // 
@@ -366,7 +490,7 @@
             this.textBookName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.textBookName.Location = new System.Drawing.Point(106, 158);
             this.textBookName.Name = "textBookName";
-            this.textBookName.Size = new System.Drawing.Size(288, 27);
+            this.textBookName.Size = new System.Drawing.Size(287, 27);
             this.textBookName.TabIndex = 1;
             // 
             // label6
@@ -443,82 +567,6 @@
             this.bookDataGridView.TabIndex = 0;
             this.bookDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.bookDataGridView_CellDoubleClick);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label11.Location = new System.Drawing.Point(0, 78);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(102, 20);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "User Books:";
-            // 
-            // listUserBooksList
-            // 
-            this.listUserBooksList.FormattingEnabled = true;
-            this.listUserBooksList.ItemHeight = 20;
-            this.listUserBooksList.Location = new System.Drawing.Point(108, 76);
-            this.listUserBooksList.Name = "listUserBooksList";
-            this.listUserBooksList.Size = new System.Drawing.Size(609, 84);
-            this.listUserBooksList.TabIndex = 5;
-            // 
-            // comboUserBorrow
-            // 
-            this.comboUserBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboUserBorrow.FormattingEnabled = true;
-            this.comboUserBorrow.Location = new System.Drawing.Point(109, 78);
-            this.comboUserBorrow.Name = "comboUserBorrow";
-            this.comboUserBorrow.Size = new System.Drawing.Size(285, 28);
-            this.comboUserBorrow.TabIndex = 7;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label12.Location = new System.Drawing.Point(44, 81);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(63, 25);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "User:";
-            // 
-            // btnLendTheBook
-            // 
-            this.btnLendTheBook.Location = new System.Drawing.Point(428, 117);
-            this.btnLendTheBook.Name = "btnLendTheBook";
-            this.btnLendTheBook.Size = new System.Drawing.Size(181, 30);
-            this.btnLendTheBook.TabIndex = 8;
-            this.btnLendTheBook.Text = "Lend the book";
-            this.btnLendTheBook.UseVisualStyleBackColor = true;
-            this.btnLendTheBook.Click += new System.EventHandler(this.btnLendTheBook_Click);
-            // 
-            // btnReturnTheBook
-            // 
-            this.btnReturnTheBook.Location = new System.Drawing.Point(428, 76);
-            this.btnReturnTheBook.Name = "btnReturnTheBook";
-            this.btnReturnTheBook.Size = new System.Drawing.Size(181, 30);
-            this.btnReturnTheBook.TabIndex = 8;
-            this.btnReturnTheBook.Text = "Return the book";
-            this.btnReturnTheBook.UseVisualStyleBackColor = true;
-            // 
-            // comboAllUserListBookSection
-            // 
-            this.comboAllUserListBookSection.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboAllUserListBookSection.FormattingEnabled = true;
-            this.comboAllUserListBookSection.Location = new System.Drawing.Point(109, 119);
-            this.comboAllUserListBookSection.Name = "comboAllUserListBookSection";
-            this.comboAllUserListBookSection.Size = new System.Drawing.Size(285, 28);
-            this.comboAllUserListBookSection.TabIndex = 10;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label13.Location = new System.Drawing.Point(44, 122);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(59, 20);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "Users:";
-            // 
             // LibraryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -587,5 +635,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox comboAllUserListBookSection;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelSelectedUserId;
+        private System.Windows.Forms.Label labelSelectedBookId;
+        private System.Windows.Forms.Label labelBookOwnerId;
+        private System.Windows.Forms.Label labelAllUserSelectedId;
     }
 }
